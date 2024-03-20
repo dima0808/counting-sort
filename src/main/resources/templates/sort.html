@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>Сортування</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="m-4">
+  <p>Невідсортований масив:</p>
+  <table>
+    <tbody>
+    <tr>
+      <td th:each="temp : ${countingSort.arr}" th:text="${temp}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <br>
+
+  <p>Відсортований масив:</p>
+  <table>
+    <tbody>
+    <tr>
+      <td th:each="temp : ${countingSort.sortedArr}" th:text="${temp}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <br>
+  <br>
+
+  <p>Кількість елементів масиву: <span th:text="${countingSort.n}"/></p>
+
+  <p>Кількість операцій: <span th:text="${countingSort.operationsCount}"/></p>
+
+  <p>Тривалість сортування: <span th:text="${countingSort.time / 1000} + 'мкс'"/></p>
+
+  <div class="ml-5">
+    <a th:href="@{/}" class="btn btn-secondary">Назад</a>
+  </div>
+
+</div>
+
+</body>
+</html>

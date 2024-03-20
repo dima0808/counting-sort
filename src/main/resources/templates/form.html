@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>Сортування</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="ml-5">
+  <h1>Сортування масиву</h1>
+  <form th:action="@{/processSortingRandom}" method="POST">
+    <div class="form-group">
+      <label style="display: block" for="randomAmount">Рандомна генерація масиву за бажанням:</label>
+      <input style="width: 180px;" id="randomAmount" type="number" placeholder="Кількість елементів" name="randomAmount">
+      </div>
+    <button type="submit" class="btn btn-secondary mb-3">Згенерувати</button>
+  </form>
+
+  <form th:action="@{/processSorting}" method="POST">
+    <div class="form-group">
+      <label style="display: block" for="array">Введіть масив:</label>
+      <textarea style="width: 100%; max-width: 1000px;" class="form-control" id="array" name="array" rows="4" placeholder="масив"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Відправити</button>
+  </form>
+</div>
+
+<div style="width: 80%; margin-inline: auto; margin-top: 50px">
+  <canvas id="timeChart"></canvas>
+</div>
+
+<div style="width: 80%; margin-inline: auto; margin-top: 50px">
+  <canvas id="opChart"></canvas>
+</div>
+
+<div style="width: 80%; margin-inline: auto; margin-block: 50px">
+  <p style="margin-bottom: 30px">Складність алгоритму Big O</p>
+  <img th:src="o.png" alt="O(n)">
+</div>
+
+<script th:inline="javascript">
+
+  const xValues = [[${valuesX}]];
+  const yValues1 = [[${valuesY1}]];
+  const yValues2 = [[${valuesY2}]];
+
+  const ctx1 = document.getElementById('timeChart').getContext('2d');
+  const timeChart = new Chart(ctx1, {
+    type: 'line',
+    data: {
+      labels: xValues,
+      datasets: [{
+        label: 'Час виконання сортування залежно від кількості елементів у масиві',
+        data: yValues1,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 2,
+        fill: false
+      }]
+    },
+    options: {
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Кількість елементів масиву'
+          },
+          type: 'linear',
+          position: 'bottom',
+          suggestedMax: 12000,
+          ticks: {
+            stepSize: 200
+          },
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'Час виконання сортування, мс'
+          },
+          beginAtZero: true,
+          ticks: {
+            stepSize: 10000
+          }
+        }
+      }
+    }
+  });
+
+  const ctx2 = document.getElementById('opChart').getContext('2d');
+  const opChart = new Chart(ctx2, {
+    type: 'line',
+    data: {
+      labels: xValues,
+      datasets: [{
+        label: 'Кількість операцій залежно від кількості елементів у масиві',
+        data: yValues2,
+        borderColor: 'rgb(210,29,215)',
+        borderWidth: 2,
+        fill: false
+      }]
+    },
+    options: {
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Кількість елементів масиву'
+          },
+          type: 'linear',
+          position: 'bottom',
+          suggestedMax: 12000,
+          ticks: {
+            stepSize: 200
+          },
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'Кількість операцій'
+          },
+          beginAtZero: true,
+          ticks: {
+            stepSize: 10000
+          }
+        }
+      }
+    }
+  });
+
+</script>
+</body>
+</html>
