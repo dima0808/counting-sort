@@ -16,12 +16,12 @@ public class MainController {
         int[] valuesX = new int[]{50, 100, 300, 500, 700, 1000, 1300, 1600,
                 2000, 2400, 2800, 3300, 3800, 4300, 4900, 5500,
                 6200, 6900, 7600, 8400, 9200, 10000, 11000, 12000};
-        long[] valuesY1 = new long[valuesX.length];
+        double[] valuesY1 = new double[valuesX.length];
         long[] valuesY2 = new long[valuesX.length];
 
         for (int i = 0; i < valuesX.length; i++) {
             CountingSort tempSort = new CountingSort(valuesX[i]);
-            valuesY1[i] = tempSort.getTime();
+            valuesY1[i] = (double) tempSort.getTime() / 1000000;
             valuesY2[i] = tempSort.getOperationsCount();
 
             model.addAttribute("valuesX", valuesX);
